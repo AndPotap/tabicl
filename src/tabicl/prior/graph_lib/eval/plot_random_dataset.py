@@ -34,7 +34,7 @@ def plot_random_dataset(cls):
         for col in range(ncols):
             print(f"Generating random dataset for {row=}, {col=}")
             n_classes = 2 if np.random.rand() < 0.5 else np.random.randint(3, 11)
-            ds_prop = DatasetProperties(n_train=n_points, n_test=0, cat_sizes={"x": [0]*20, "y": [n_classes]})
+            ds_prop = DatasetProperties(n_train=n_points, n_test=0, cat_sizes={"x": [0] * 20, "y": [n_classes]})
             while True:
                 ds_tensors = cls(Context()).sample(ds_prop).get_concat_tensors()
                 # print(list(ds_tensors.keys()))
