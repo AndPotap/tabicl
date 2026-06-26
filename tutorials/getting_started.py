@@ -18,9 +18,7 @@ from sklearn.model_selection import cross_val_score
 
 from tabicl import TabICLClassifier
 
-X, y = make_classification(
-    n_samples=300, n_features=10, n_informative=5, random_state=42
-)
+X, y = make_classification(n_samples=300, n_features=10, n_informative=5, random_state=42)
 
 clf = TabICLClassifier(n_estimators=4, device="cpu")
 scores = cross_val_score(clf, X, y, cv=5, scoring="accuracy")
@@ -37,9 +35,7 @@ from sklearn.model_selection import cross_val_score
 
 from tabicl import TabICLRegressor
 
-X, y = make_regression(
-    n_samples=300, n_features=10, n_informative=5, noise=0.5, random_state=42
-)
+X, y = make_regression(n_samples=300, n_features=10, n_informative=5, noise=0.5, random_state=42)
 
 reg = TabICLRegressor(n_estimators=4, device="cpu")
 scores = cross_val_score(reg, X, y, cv=5, scoring="r2")
@@ -55,12 +51,8 @@ print(f"Regression R² score: {scores.mean():.3f} (+/- {scores.std():.3f})")
 
 from sklearn.model_selection import train_test_split
 
-X, y = make_classification(
-    n_samples=300, n_features=10, n_informative=5, random_state=42
-)
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
+X, y = make_classification(n_samples=300, n_features=10, n_informative=5, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 clf = TabICLClassifier(n_estimators=4, kv_cache=True, device="cpu")
 clf.fit(X_train, y_train)
@@ -78,10 +70,10 @@ print(f"Probabilities shape: {probabilities.shape}")
 # Save and load a fitted classifier or regressor:
 
 clf.save(
-   "classifier.pkl",
-   save_model_weights=False,  # if False, reload from checkpoint on load
-   save_training_data=True,   # if True, include training data; if False, discard it (requires KV cache)
-   save_kv_cache=True,        # if True and KV cache exists, save it
+    "classifier.pkl",
+    save_model_weights=False,  # if False, reload from checkpoint on load
+    save_training_data=True,  # if True, include training data; if False, discard it (requires KV cache)
+    save_kv_cache=True,  # if True and KV cache exists, save it
 )
 clf = TabICLClassifier.load("classifier.pkl")
 
@@ -89,4 +81,3 @@ clf = TabICLClassifier.load("classifier.pkl")
 # When KV cache exists and is saved, you can set
 # ``save_training_data=False`` to exclude cached training data, which may
 # be useful for data privacy.
-
