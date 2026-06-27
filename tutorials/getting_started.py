@@ -20,7 +20,7 @@ from tabicl import TabICLClassifier
 
 X, y = make_classification(n_samples=300, n_features=10, n_informative=5, random_state=42)
 
-clf = TabICLClassifier(n_estimators=4, device="cpu")
+clf = TabICLClassifier(n_estimators=4, device="cuda")
 scores = cross_val_score(clf, X, y, cv=5, scoring="accuracy")
 print(f"Classification accuracy: {scores.mean():.3f} (+/- {scores.std():.3f})")
 

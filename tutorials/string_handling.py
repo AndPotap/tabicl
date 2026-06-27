@@ -57,7 +57,7 @@ X
 reg = TabICLClassifier(n_estimators=1, device="cpu")  # 1 estimator for speed
 start_time = time.time()
 scores = cross_val_score(reg, X, y, cv=2, scoring="roc_auc_ovr")
-print(f"ROC AUC without skrub: {scores.mean():.3f} (+/- {scores.std():.3f}), time: {time.time()-start_time:.1f} s")
+print(f"ROC AUC without skrub: {scores.mean():.3f} (+/- {scores.std():.3f}), time: {time.time() - start_time:.1f} s")
 
 # %%
 # TabICL with skrub
@@ -86,7 +86,7 @@ pipeline = make_pipeline(
 )
 start_time = time.time()
 scores = cross_val_score(pipeline, X, y, cv=2, scoring="roc_auc_ovr")
-print(f"ROC AUC with skrub: {scores.mean():.3f} (+/- {scores.std():.3f}), time: {time.time()-start_time:.1f} s")
+print(f"ROC AUC with skrub: {scores.mean():.3f} (+/- {scores.std():.3f}), time: {time.time() - start_time:.1f} s")
 
 # %%
 #

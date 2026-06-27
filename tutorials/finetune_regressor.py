@@ -27,7 +27,7 @@ from tabicl import FinetunedTabICLRegressor, TabICLRegressor
 # Target: one easy feature (sine), one hard feature (spike)
 # ---------------------------------------------------------
 def target_fn(x: np.ndarray) -> np.ndarray:
-    return 0.8 * np.sin(1.2 * x) + 2.5 * np.exp(-80.0 * (x - 1.0) ** 2)
+    return 0.8 * np.sin(1.2 * x) + 2.5 * np.exp(-80.0 * (x - 1.0)**2)
 
 
 def make_dataset(n_samples: int = 1_000, random_state: int = 0):
@@ -67,7 +67,6 @@ base_mse, base_mae, base_r2 = _metrics(base_pred, y_test)
 # Captured for the training-curve reference line in Figure 2.
 base_val_mse = float(mean_squared_error(y_val, base.predict(X_val)))
 
-
 # %%
 # Fine-tune
 # ---------
@@ -86,7 +85,6 @@ history: dict[str, list[float]] = {
 
 class _HistoryLogger:
     """Record per-epoch validation metrics into ``history``."""
-
     def setup(self, config):
         del config
 

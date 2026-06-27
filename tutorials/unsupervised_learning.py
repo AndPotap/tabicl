@@ -23,7 +23,6 @@ from tabicl import TabICLUnsupervised
 #    experimental implementation, which has not been evaluated on large
 #    benchmarks. Use with caution.
 
-
 # %%
 # Fit the model
 # --------------
@@ -49,7 +48,6 @@ model.fit(X)
 pad = 1.0
 xlim = (X[:, 0].min() - pad, X[:, 0].max() + pad)
 ylim = (X[:, 1].min() - pad, X[:, 1].max() + pad)
-
 
 # %%
 # Outlier detection with ``score_samples()``
@@ -98,11 +96,10 @@ plt.colorbar(cf, ax=ax, label="Density score")
 ax.legend(frameon=False)
 plt.show()
 
-#%%
+# %%
 # The model correctly assigns higher scores to the dense crescent-shaped
 # regions, and lower scores to the sparse areas in between and around the
 # moons.
-
 
 # %%
 #
@@ -118,8 +115,10 @@ is_outlier = np.array([False] * len(X) + [True] * len(outliers))
 scores_all = model.score_samples(X_all, n_permutations=4)
 
 # Plot scores and outliers
-print(f"Normal score range:  [{scores_all[~is_outlier].min():.4f}, " f"{scores_all[~is_outlier].max():.4f}]")
-print(f"Outlier score range: [{scores_all[is_outlier].min():.4f}, " f"{scores_all[is_outlier].max():.4f}]")
+print(f"Normal score range:  [{scores_all[~is_outlier].min():.4f}, "
+      f"{scores_all[~is_outlier].max():.4f}]")
+print(f"Outlier score range: [{scores_all[is_outlier].min():.4f}, "
+      f"{scores_all[is_outlier].max():.4f}]")
 
 fig, ax = plt.subplots(figsize=(5, 4), constrained_layout=True)
 sc = ax.scatter(
@@ -148,7 +147,6 @@ plt.show()
 # %%
 # Outliers receive much lower scores, confirming that the model has
 # successfully learned the underlying density and can flag anomalies.
-
 
 # %%
 # Synthetic data generation with ``generate()``
@@ -179,7 +177,6 @@ for ax in axes:
 
 plt.show()
 
-
 # %%
 #
 # A quick temperature sweep shows the effect: low temperatures concentrate
@@ -197,7 +194,6 @@ for ax, t in zip(axes, temperatures):
     ax.spines[["top", "right"]].set_visible(False)
 
 plt.show()
-
 
 # %%
 # Missing-value imputation with ``impute()``
@@ -230,7 +226,8 @@ X_masked[mask] = np.nan
 is_observed = ~mask.any(axis=1)
 is_partial = mask.any(axis=1)
 
-print(f"Rows: {len(X)} total, {is_partial.sum()} with missing values, " f"{is_observed.sum()} fully observed")
+print(f"Rows: {len(X)} total, {is_partial.sum()} with missing values, "
+      f"{is_observed.sum()} fully observed")
 print(f"Cells: {mask.sum()} / {mask.size} missing ({100 * mask.mean():.0f} %)")
 
 # %%

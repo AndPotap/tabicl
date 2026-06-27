@@ -14,7 +14,6 @@ from sklearn.metrics import roc_auc_score
 from sklearn.calibration import CalibrationDisplay
 from tabicl import TabICLClassifier
 
-
 # %%
 # Generate 2D classification data
 # --------------------------------
@@ -25,9 +24,7 @@ from tabicl import TabICLClassifier
 
 X, y = make_moons(n_samples=1000, noise=0.35, random_state=0)
 
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=0
-)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
 # %%
 # Fit TabICL
@@ -120,7 +117,11 @@ print(f"Test ROC AUC: {roc_auc:.3f}")
 
 fig, ax = plt.subplots(figsize=(3.8, 3.2), constrained_layout=True)
 _ = CalibrationDisplay.from_predictions(
-    y_test, y_proba[:, 1], strategy="quantile", n_bins=7, ax=ax,
+    y_test,
+    y_proba[:, 1],
+    strategy="quantile",
+    n_bins=7,
+    ax=ax,
 )
 ax.set_title("Calibration curve")
 plt.show()

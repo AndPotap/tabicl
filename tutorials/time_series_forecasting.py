@@ -36,6 +36,7 @@ Time series forecasting
 
 # %%
 
+from matplotlib import pyplot as plt
 import numpy as np
 import pandas as pd
 from tabicl import TabICLForecaster
@@ -53,9 +54,10 @@ from tabicl.forecast import plot_forecast
 
 rng = np.random.default_rng(0)
 n_timesteps = 365 * 2  # two years of daily observations
+prediction_length = 30
+
 dates = pd.date_range(start="2022-01-01", periods=n_timesteps, freq="D")
 t = np.arange(n_timesteps)
-
 trend = 0.05 * t
 weekly_season = 5.0 * np.sin(2 * np.pi * t / 7)
 annual_season = 10.0 * np.sin(2 * np.pi * t / 365)
@@ -65,7 +67,8 @@ target = trend + weekly_season + annual_season + noise
 
 # For a single time series, ``timestamp`` and ``target`` are sufficient.
 df = pd.DataFrame({"timestamp": dates, "target": target})
-df.head()
+print(df.head())
+print(f"{df.shape=}")
 
 # %%
 #
@@ -86,7 +89,6 @@ df.head()
 # - ``context_df`` is the observed history provided to the forecaster.
 # - ``test_df`` is only used for visual comparison.
 
-prediction_length = 30
 context_df = df.iloc[:-prediction_length]
 test_df = df.iloc[-prediction_length:]
 
@@ -100,12 +102,12 @@ test_df = df.iloc[-prediction_length:]
 forecaster = TabICLForecaster()
 pred_df = forecaster.predict_df(context_df, prediction_length=prediction_length)
 
-
 # %%
 # Plot context, forecast, and held-out truth
 # ------------------------------------------
 
 fig, axes = plot_forecast(context_df=context_df, pred_df=pred_df, test_df=test_df)
+plt.show()
 
 # %%
 #
